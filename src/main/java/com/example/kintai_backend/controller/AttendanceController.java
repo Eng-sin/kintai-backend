@@ -20,4 +20,10 @@ public class AttendanceController {
         logger.info("打刻開始しました");
         return "打刻開始しました";
     }
+
+    @PostMapping("/check-out")
+    public String checkOut(){
+        logger.info("打刻終了しました");
+        return "打刻終了しました";
+    }
 }
