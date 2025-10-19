@@ -1,29 +1,31 @@
 package com.example.kintai_backend.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.kintai_backend.dto.request.CheckInRequest;
+import com.example.kintai_backend.service.AttendanceService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/attendance")
+@RequiredArgsConstructor
 public class AttendanceController {
 
-    private static final Logger logger = LoggerFactory.getLogger(AttendanceController.class);
+    private final AttendanceService attendanceService;
     /**
      * 勤務開始処理
      * @return
      */
     @PostMapping("/check-in")
-    public String checkIn(){
-        logger.info("打刻開始しました");
-        return "打刻開始しました";
+    public ResponseEntity<Void> checkIn(@Valid @RequestBody CheckInRequest request){
+        Long userId = request.getUserId();
+        attendanceService.checkIn(userId);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/check-out")
     public String checkOut(){
-        logger.info("打刻終了しました");
         return "打刻終了しました";
     }
 }
