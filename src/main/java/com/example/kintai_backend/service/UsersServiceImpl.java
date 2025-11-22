@@ -14,4 +14,6 @@ public class UsersServiceImpl implements UsersService{
         return repository.existsById(userId);
     }
 
+    @Override
+    public boolean findUser(String email) { return repository.existsByEmail(email); }
 }
